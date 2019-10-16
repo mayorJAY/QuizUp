@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name='aad-team-44-animation-challenge'
