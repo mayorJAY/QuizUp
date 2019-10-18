@@ -141,6 +141,8 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
             RadioButton radioButton = findViewById(mOptionsPanel.getCheckedRadioButtonId());
             String optionSelected = radioButton.getText().toString();
             checkAnswerAndMarkResult(optionSelected);
+            radioButton.setChecked(false);
+            radioButton.setBackgroundColor(getResources().getColor(android.R.color.white));
             if(mQuestionIndex < mQuestionslistSize - 1){
                 mQuestionIndex = mQuestionIndex + 1;
                 anyOptionChecked = !anyOptionChecked;
@@ -271,7 +273,7 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
                 builder.setView(view);
 
                 ProgressBar result_plot = view.findViewById(R.id.progressBar);
-                result_plot.setProgress(5 / 6);
+                result_plot.setProgress(mUsersScore / 6);
 
                 TextView result_text = view.findViewById(R.id.sport_result_text);
                 result_text.setText(String.format("you scored: %d of 6", mUsersScore));
