@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
@@ -14,8 +15,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.Interpolator;
+import android.view.animation.OvershootInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -41,6 +47,7 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
     HashMap<String, String> questionMapped;
     private final static int RESULT_AFTER_QUIZ = 776;
     private static boolean anyOptionChecked;
+    Button submitButton ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +61,8 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
         mOptionsB = findViewById(R.id.sports_option_b);
         mOptionsC = findViewById(R.id.sports_option_c);
         mOptionsD = findViewById(R.id.sports_option_d);
+
+        submitButton = findViewById(R.id.sports_submit);
         animatebuttons();
 
         answeredArrayList = new ArrayList<>();
@@ -64,7 +73,6 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
 
        //set page title
         getSupportActionBar().setTitle("SPORTS.");
-        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_question_answer));
 
         mOptionsPanel.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -149,19 +157,42 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
         if(mQuestionIndex < mQuestionslistSize - 1 ){
             mQuestionIndex = mQuestionIndex + 1;
             startQuiz(mQuestionIndex);
+            submitButtonFades(false);
         }
         else{
             //mQuestionsText.setText("You Reached the End of the Quiz, Submit");
-            TextView submitButton = findViewById(R.id.sports_submit);
-            submitButton.setVisibility(View.VISIBLE);
+            submitButtonFades(true);
+
         }
+    }
+
+    //animate submit submit Buttons
+    private void submitButtonFades(boolean visible){
+       if(visible){
+           Animation animation = new AlphaAnimation(0, 1);
+           animation.setDuration(500);
+           animation.setRepeatMode(Animation.REVERSE);
+           animation.setRepeatCount(2);
+           submitButton.setVisibility(View.VISIBLE);
+           submitButton.startAnimation(animation);
+
+       }else{
+           Animation animationOut = new AlphaAnimation(1, 0);
+           animationOut.setDuration(500);
+           animationOut.setRepeatMode(Animation.REVERSE);
+           animationOut.setRepeatCount(1);
+           submitButton.startAnimation(animationOut);
+           submitButton.setVisibility(View.GONE);
+       }
     }
 
     //called when user wants to go to previous questions
     private void previousquestion(){
         if(mQuestionIndex > 0){
             mQuestionIndex = mQuestionIndex - 1;
+            submitButtonFades(false);
         }else {
+            submitButtonFades(true);
             //mQuestionIndex = mQuestionslistSize - 1;
         }
         startQuiz(mQuestionIndex);
@@ -186,9 +217,8 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
                 R.color.colorRadio : R.color.colorSelected));
         resetOtherRadioButtons(radioId);
 
-        checkAnswerAndMarkResult(radioButton.getText().toString());
-
     }
+
     //called to remove transition animation from none focused radio buttons
     private void resetOtherRadioButtons(int radioId) {
         View v = new View(this);
@@ -210,8 +240,6 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
 
     //compares users choice from question answer
     private void checkAnswerAndMarkResult(String selected){
-        Toast.makeText(this, selected, Toast.LENGTH_LONG).show();
-
         HashMap<String, String> questionMapped;
         questionMapped = mQuestionsMap.get(mQuestionIndex);
         String answerStored = questionMapped.get("correctAnswer");
@@ -243,7 +271,7 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
                 builder.setView(view);
 
                 ProgressBar result_plot = view.findViewById(R.id.progressBar);
-                result_plot.setProgress(mUsersScore / 6);
+                result_plot.setProgress(5 / 6);
 
                 TextView result_text = view.findViewById(R.id.sport_result_text);
                 result_text.setText(String.format("you scored: %d of 6", mUsersScore));
