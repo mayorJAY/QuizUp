@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -63,6 +64,7 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
 
        //set page title
         getSupportActionBar().setTitle("SPORTS.");
+        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_question_answer));
 
         mOptionsPanel.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -87,7 +89,7 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case android.R.id.home:
+            case R.id.action_sport_close:
                 finish();
         }
         return super.onOptionsItemSelected(item);
