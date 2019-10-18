@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">aad-team-44-animation-challenge</string>
+
     //Questions
     <string name="cloud_question_1">What is clouding computing</string>
     <string name="cloud_question_2">What year was Google app engine launched</string>
@@ -9,4 +10,8 @@
 
     
     //options
+
+    <string name="welcome_screen">QuizUp Trivia</string>
+    <string name="logo">This is a logo</string>
+
 </resources>
