@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">aad-team-44-animation-challenge</string>
     //Questions
+    <string name="cloud_question_1">What is clouding computing</string>
+    <string name="cloud_question_2">What year was Google app engine launched</string>
+    <string name="cloud_question_3">What is the meaning of Paas</string>
+    <string name="cloud_question_4">What is cloud</string>
+    <string name="cloud_question_5">What is the meaning of Saas</string>
 
+    
     //options
 </resources>
