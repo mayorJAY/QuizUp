@@ -39,6 +39,7 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
     ArrayList<HashMap<String, String>> answeredArrayList;
     HashMap<String, String> questionMapped;
     private final static int RESULT_AFTER_QUIZ = 776;
+    private static boolean anyOptionChecked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
         mQuestionsMap = DataManager.getInstance().getQuestions();
         mQuestionslistSize = mQuestionsMap.size();
 
+       //set page title
         getSupportActionBar().setTitle("SPORTS.");
 
         mOptionsPanel.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -68,6 +70,7 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if(group.getCheckedRadioButtonId() != 0) {
                     usersChoiceColorChange(checkedId, true);
+                    anyOptionChecked = true;
                 }
             }
         });
@@ -90,6 +93,7 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
         return super.onOptionsItemSelected(item);
     }
 
+    //Radio button animation not yet working
     private void animatebuttons(){
         Animation optionaAnime = new TranslateAnimation(0,100,0,0);
         Animation optionbAnime = new TranslateAnimation(0,100,100,0);
@@ -102,6 +106,7 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
         mOptionsD.setAnimation(optiondAnime);
     }
 
+    //show the quiz questions and options from integer array index
     private void startQuiz(int mQuestionIndex) {
         questionMapped = mQuestionsMap.get(mQuestionIndex);
 
@@ -112,41 +117,55 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
         mOptionsD.setText(questionMapped.get("optiond"));
     }
 
+    //check to see if user selects an options then
     private void nextQuestion(){
-        RadioButton radioButton = findViewById(mOptionsPanel.getCheckedRadioButtonId());
-
-        if(mQuestionIndex < mQuestionslistSize){
-            if(mOptionsPanel.getCheckedRadioButtonId()==0){
+        //when no options is selected
+        if(!anyOptionChecked){
+            if(mQuestionIndex < mQuestionslistSize){
                 skipquestion();
-            }else {
-                checkAnswerAndMarkResult(radioButton.getText().toString());
-                mQuestionIndex = mQuestionIndex + 1;
+            }else if(mQuestionIndex == mQuestionslistSize-1) {
                 startQuiz(mQuestionIndex);
             }
-        }
+        //when an option is selected
+        }else {
+            RadioButton radioButton = findViewById(mOptionsPanel.getCheckedRadioButtonId());
+            String optionSelected = radioButton.getText().toString();
+            checkAnswerAndMarkResult(optionSelected);
+            if(mQuestionIndex < mQuestionslistSize - 1){
+                mQuestionIndex = mQuestionIndex + 1;
+                anyOptionChecked = !anyOptionChecked;
+                startQuiz(mQuestionIndex);
+            }else {
+                showScore();
+            }
 
+        }
     }
 
+    //called when no options is selected but user wants to go to next questions
     private void skipquestion(){
-        mQuestionIndex = mQuestionIndex + 1;
-
-        if(mQuestionIndex < mQuestionslistSize){
+        if(mQuestionIndex < mQuestionslistSize - 1 ){
+            mQuestionIndex = mQuestionIndex + 1;
             startQuiz(mQuestionIndex);
         }
         else{
-            mQuestionsText.setText("You Reached the End of the Quiz, Submit");
+            //mQuestionsText.setText("You Reached the End of the Quiz, Submit");
+            TextView submitButton = findViewById(R.id.sports_submit);
+            submitButton.setVisibility(View.VISIBLE);
         }
     }
 
+    //called when user wants to go to previous questions
     private void previousquestion(){
-        mQuestionIndex = mQuestionIndex - 1;
-
-        if(mQuestionIndex < 0){
-            mQuestionIndex = mQuestionslistSize - 1;
+        if(mQuestionIndex > 0){
+            mQuestionIndex = mQuestionIndex - 1;
+        }else {
+            //mQuestionIndex = mQuestionslistSize - 1;
         }
         startQuiz(mQuestionIndex);
     }
 
+    //called when quiz completes
     private void showScore(){
         showDialog(RESULT_AFTER_QUIZ);
     }
@@ -157,6 +176,7 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
 
     }
 
+    //animate color transition on radio buttons required min sdk=23
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void usersChoiceColorChange(int radioId, boolean isChecked){
         RadioButton radioButton = findViewById(radioId);
@@ -167,7 +187,7 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
         checkAnswerAndMarkResult(radioButton.getText().toString());
 
     }
-
+    //called to remove transition animation from none focused radio buttons
     private void resetOtherRadioButtons(int radioId) {
         View v = new View(this);
 
@@ -186,6 +206,7 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
 
     }
 
+    //compares users choice from question answer
     private void checkAnswerAndMarkResult(String selected){
         Toast.makeText(this, selected, Toast.LENGTH_LONG).show();
 
@@ -202,6 +223,7 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
+    //supposed to holder answered questions in memory to avoid multiple answering not yet working
     private void saveAnsweredQuestions(String question, String usersChoice){
         alreadyAnswered.put("question", question);
         alreadyAnswered.put("answer", usersChoice);
@@ -212,6 +234,7 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected Dialog onCreateDialog(int id) {
         switch (id){
+            //dialog to show users score to be transferred into fragment
             case RESULT_AFTER_QUIZ:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 View view = View.inflate(this, R.layout.sport_quiz_result_layout, null);

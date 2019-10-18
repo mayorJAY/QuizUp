@@ -4,6 +4,6 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
-    <color name="colorRadio">#00574B</color>
-    <color name="colorSelected">#D81B60</color>
+    <color name="colorRadio">#A7C69A</color>
+    <color name="colorSelected">#C0A9CE</color>
 </resources>
