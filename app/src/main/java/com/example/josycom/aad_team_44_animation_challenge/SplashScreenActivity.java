@@ -20,8 +20,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         TextView splashText = findViewById(R.id.splashText);
 
         //Creates the animation from the XML file and applies it to the ImageView and TextView
-        Animation animation1 = AnimationUtils.loadAnimation(this, R.anim.fadeanimation);
-        Animation animation2 = AnimationUtils.loadAnimation(this, R.anim.slideanimation);
+        Animation animation1 = AnimationUtils.loadAnimation(this, R.anim.fade_animation);
+        Animation animation2 = AnimationUtils.loadAnimation(this, R.anim.slide_animation);
         splashImage.startAnimation(animation1);
         splashText.startAnimation(animation2);
 
@@ -31,7 +31,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         Thread timer = new Thread() {
             public void run() {
                 try {
-                    sleep(5500);
+                    sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {

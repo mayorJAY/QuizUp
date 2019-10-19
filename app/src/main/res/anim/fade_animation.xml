@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--Fade animation for the ImageView on the splash screen-->
 <alpha xmlns:android="http://schemas.android.com/apk/res/android"
     android:fromAlpha="0.0"
     android:toAlpha="1.0"
