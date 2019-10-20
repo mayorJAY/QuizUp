@@ -18,7 +18,7 @@ public class Question {
     int primaryKey;
 
     String Question;
-    @TypeConverters()
+    @Ignore
     ArrayList<String> answers = new ArrayList<>(NUMBER_OF_ANSWERS);
     int answer;
 
