@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import com.example.josycom.aad_team_44_animation_challenge.utilities.DataManager
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class SportQuizActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -47,7 +49,8 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
     HashMap<String, String> questionMapped;
     private final static int RESULT_AFTER_QUIZ = 776;
     private static boolean anyOptionChecked;
-    Button submitButton ;
+    private Button submitButton ;
+    private int[] questionShowed=new int[6];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +89,7 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
         });
         startQuiz(mQuestionIndex);
         alreadyAnswered = new HashMap<>();
+
     }
 
     @Override
@@ -118,7 +122,8 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
 
     //show the quiz questions and options from integer array index
     private void startQuiz(int mQuestionIndex) {
-        questionMapped = mQuestionsMap.get(mQuestionIndex);
+        //questionMapped = mQuestionsMap.get(mQuestionIndex);
+         questionMapped = mQuestionsMap.get(randomQuestionSelection(mQuestionIndex));
 
         mQuestionsText.setText(questionMapped.get("question"));
         mOptionsA.setText(questionMapped.get("optiona"));
@@ -142,6 +147,7 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
             String optionSelected = radioButton.getText().toString();
             checkAnswerAndMarkResult(optionSelected);
             radioButton.setChecked(false);
+            mOptionsPanel.clearFocus();
             radioButton.setBackgroundColor(getResources().getColor(android.R.color.white));
             if(mQuestionIndex < mQuestionslistSize - 1){
                 mQuestionIndex = mQuestionIndex + 1;
@@ -210,6 +216,9 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
         super.onStart();
 
     }
+    public void finishTheQuiz(){
+        startActivity(new Intent(this, MainActivity.class));
+    }
 
     //animate color transition on radio buttons required min sdk=23
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -272,16 +281,21 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
                 View view = View.inflate(this, R.layout.sport_quiz_result_layout, null);
                 builder.setView(view);
 
+                Animation animation = AnimationUtils.loadAnimation(this, R.anim.fade_animation);
+                animation.setDuration(500);
+
                 ProgressBar result_plot = view.findViewById(R.id.progressBar);
-                result_plot.setProgress(mUsersScore / 6);
+                result_plot.setProgress(mUsersScore);
 
                 TextView result_text = view.findViewById(R.id.sport_result_text);
                 result_text.setText(String.format("you scored: %d of 6", mUsersScore));
+                result_text.startAnimation(animation);
 
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dismissDialog(RESULT_AFTER_QUIZ);
+                        finishTheQuiz();
                     }
                 });
                 return builder.create();
@@ -304,5 +318,27 @@ public class SportQuizActivity extends AppCompatActivity implements View.OnClick
                 showScore();
                 break;
         }
+    }
+
+    private int randomQuestionSelection(int i){
+
+        Random questionSelection = new Random();
+        int pickQuestion = questionSelection.nextInt(6);
+
+
+        if(i==0){
+            questionShowed[i] = pickQuestion;
+        }else{
+            for(int j = 0; j < 6; j ++){
+                if(pickQuestion == questionShowed[j]){
+                    randomQuestionSelection(i);
+                }else{
+                    questionShowed[i] = pickQuestion;
+                    break;
+                }
+            }
+        }
+
+        return pickQuestion;
     }
 }
