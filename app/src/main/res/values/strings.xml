@@ -2,4 +2,6 @@
     <string name="app_name">aad-team-44-animation-challenge</string>
     <string name="welcome_screen">QuizUp Trivia</string>
     <string name="logo">This is a logo</string>
+    <string name="title_activity_question">QuestionActivity</string>
+    <string name="action_settings">Settings</string>
 </resources>
