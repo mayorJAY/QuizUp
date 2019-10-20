@@ -86,7 +86,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
         android:src="@android:drawable/ic_media_previous"
-        android:text="prvious"
+        android:text="previous"
         android:onClick="onClick"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sports_options_panel" />
@@ -106,13 +106,12 @@
 
     <Button
         android:id="@+id/sports_submit"
-        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"
         android:visibility="gone"
         android:onClick="onClick"
-        app:layout_constraintTop_toBottomOf="@id/sports_options_panel"
+        app:layout_constraintTop_toTopOf="@id/sport_previous"
         app:layout_constraintLeft_toRightOf="@id/sport_previous"
         app:layout_constraintRight_toLeftOf="@id/sports_next" />
 

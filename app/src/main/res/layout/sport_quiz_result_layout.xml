@@ -7,14 +7,18 @@
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_marginTop="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
+        android:max="6"
         android:layout_height="4dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:id="@+id/sport_result_text"
-        android:text=" u scored"
+        android:textSize="20sp"
+        android:layout_marginTop="32dp"
         android:gravity="center"
         android:layout_height="wrap_content"/>
 
