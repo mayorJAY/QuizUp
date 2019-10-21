@@ -34,6 +34,11 @@ public class DataManager {
     interface OnQuestionsLoadedListener{
         void onQuestionsLoaded(List<Question> questions);
     }
+
+    public void putQuestion(Question... questions){
+        database.getQuestionDao().put(questions);
+    }
+
     public void loadQuestion(final QuizListManager.Quiz quiz, final OnQuestionsLoadedListener listener){
 
         final Handler handler = new Handler(){
