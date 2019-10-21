@@ -49,21 +49,6 @@ public class QuestionActivity extends AppCompatActivity {
             @Override
             public void onClick(final View view) {
                 gotoNextQuestion();
-
-
-//                new AlertDialog.Builder(view.getContext()).setMessage("Do you want to score and exit?").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.dismiss();
-//                    }
-//                }).setPositiveButton("Sure!", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//
-//                    }
-//                }).show();
-
             }
         });
 
