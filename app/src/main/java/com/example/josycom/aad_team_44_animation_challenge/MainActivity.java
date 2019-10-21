@@ -6,11 +6,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.transition.Explode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -60,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent questionActivityIntent = new Intent(v.getContext(), QuestionActivity.class);
                     questionActivityIntent.putExtra("quiz", quiz);
-                    startActivity(questionActivityIntent);
+                    startActivity(questionActivityIntent, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
                 }
             });
         }
