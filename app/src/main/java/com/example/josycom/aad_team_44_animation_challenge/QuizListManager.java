@@ -5,12 +5,12 @@ import androidx.annotation.DrawableRes;
 class QuizListManager {
 
     public enum Quiz{
-        CurrentAffairs("Current Affairs Questions", R.drawable.ic_current_affairs_black_24dp),
-        ScienceAndDevelopment("Science And Development Questions", R.drawable.ic_science_black_24dp),
-        AndroidDevelopment("Android Development Questions", R.drawable.ic_android_black_24dp),
-        WebDevelopment("Web Development Questions", R.drawable.ic_web_black_24dp),
-        GoogleCloudPlatform("Google Cloud Platform Questions", R.drawable.ic_cloud_black_24dp),
-        SportsQuestions("Sports Questions", R.drawable.ic_sports_black_24dp);
+        CurrentAffairs("Current Affairs", R.drawable.ic_current_affairs_black_24dp),
+        ScienceAndDevelopment("Science And Development", R.drawable.ic_science_black_24dp),
+        AndroidDevelopment("Android Development", R.drawable.ic_android_black_24dp),
+        WebDevelopment("Web Development", R.drawable.ic_web_black_24dp),
+        GoogleCloudPlatform("Google Cloud Platform", R.drawable.ic_cloud_black_24dp),
+        SportsQuestions("Sports", R.drawable.ic_sports_black_24dp);
 
         private String name;
         private int image;
