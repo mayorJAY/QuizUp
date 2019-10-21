@@ -5,11 +5,13 @@ import androidx.room.Dao;
 import androidx.room.Query;
 import androidx.room.RoomDatabase;
 
+import java.util.List;
+
 @Dao
 interface QuestionDao{
 
-    @Query("SELECT :quizName from question")
-    void getAll(String quizName);
+    @Query("SELECT * from question WHERE category IS :quizName")
+    List<Question> getAll(String quizName);
 
 }
 
