@@ -11,44 +11,63 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.TextViewCompat;
 
+import android.os.CountDownTimer;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
+import android.widget.TextView;
+
+import java.util.List;
 
 public class QuestionActivity extends AppCompatActivity {
 
     QuizListManager.Quiz quiz;
     DataManager dataManager;
+    List<Question> questions;
+    Question currentQuestion;
+    int currentNumber = 1;
+    int score = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         dataManager = DataManager.getInstance(this);
         quiz = (QuizListManager.Quiz)getIntent().getExtras().getSerializable("quiz");
+
+        toolbar.setTitle(quiz.getName());
+        setSupportActionBar(toolbar);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                new AlertDialog.Builder(view.getContext()).setMessage("Do you want to score and exit?").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).setPositiveButton("Sure!", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                gotoNextQuestion();
 
-                        Snackbar.make(view, "Congratulations your score is:", Snackbar.LENGTH_LONG).show();
-                    }
-                }).show();
+
+//                new AlertDialog.Builder(view.getContext()).setMessage("Do you want to score and exit?").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                }).setPositiveButton("Sure!", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//
+//                    }
+//                }).show();
 
             }
         });
+
+
 
         ((ChipGroup)findViewById(R.id.choice_group)).setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
             @Override
@@ -57,10 +76,79 @@ public class QuestionActivity extends AppCompatActivity {
                 if (i == -1) return;
 
                 Chip checkedChip = chipGroup.findViewById(chipGroup.getCheckedChipId());
-                Animation animation = AnimationUtils.loadAnimation(chipGroup.getContext(), R.anim.correct_anim);
+                Animation animation;
+                if (checkedChip.getText() == currentQuestion.answers.get(currentQuestion.answer)) {
+                    animation = AnimationUtils.loadAnimation(chipGroup.getContext(), R.anim.correct_anim);
+                    ++score;
+                } else {
+                    animation = AnimationUtils.loadAnimation(chipGroup.getContext(), R.anim.wrong_anim);
+                }
+
                 checkedChip.startAnimation(animation);
+
+                animation.setDuration(animation.getDuration() + 1000);
+
+                animation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) { }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        gotoNextQuestion();
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) { }
+                });
             }
         });
+
+        dataManager.loadQuestion(quiz, new DataManager.OnQuestionsLoadedListener() {
+            @Override
+            public void onQuestionsLoaded(List<Question> questions) {
+                QuestionActivity.this.questions = questions;
+            }
+        });
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add("EXIT");
+        return  true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getTitle() == "EXIT") {
+            finish();
+        }
+
+        return true;
+    }
+
+    private void gotoNextQuestion(){
+        if (currentNumber > questions.size()){
+            new AlertDialog.Builder(this).setMessage("Congratulations your score is: " + score).setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    finish();
+                }
+            }).show();
+        } else {
+            currentQuestion = questions.get(currentNumber++ - 1);
+            TextView questionTextView = findViewById(R.id.question_text);
+            ChipGroup choices = findViewById(R.id.choice_group);
+
+            questionTextView.setText(currentQuestion.Question);
+
+            for (int i = 0; i <  currentQuestion.answers.size(); i++){
+                Chip chip = (Chip)choices.getChildAt(i);
+                chip.setText(currentQuestion.answers.get(i), TextView.BufferType.NORMAL);
+            }
+        }
+
 
     }
 }
