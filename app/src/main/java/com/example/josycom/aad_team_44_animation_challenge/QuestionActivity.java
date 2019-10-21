@@ -6,19 +6,15 @@ import android.os.Bundle;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.widget.TextViewCompat;
 
-import android.os.CountDownTimer;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
@@ -62,7 +58,7 @@ public class QuestionActivity extends AppCompatActivity {
 
                 Chip checkedChip = chipGroup.findViewById(chipGroup.getCheckedChipId());
                 Animation animation;
-                if (checkedChip.getText() == currentQuestion.answers.get(currentQuestion.answer)) {
+                if (checkedChip.getText() == currentQuestion.options.get(currentQuestion.answer)) {
                     animation = AnimationUtils.loadAnimation(chipGroup.getContext(), R.anim.correct_anim);
                     ++score;
                 } else {
@@ -128,9 +124,9 @@ public class QuestionActivity extends AppCompatActivity {
 
             questionTextView.setText(currentQuestion.Question);
 
-            for (int i = 0; i <  currentQuestion.answers.size(); i++){
+            for (int i = 0; i <  currentQuestion.options.size(); i++){
                 Chip chip = (Chip)choices.getChildAt(i);
-                chip.setText(currentQuestion.answers.get(i), TextView.BufferType.NORMAL);
+                chip.setText(currentQuestion.options.get(i), TextView.BufferType.NORMAL);
             }
         }
 
