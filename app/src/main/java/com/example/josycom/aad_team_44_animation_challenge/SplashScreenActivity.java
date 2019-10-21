@@ -1,9 +1,14 @@
 package com.example.josycom.aad_team_44_animation_challenge;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.animation.AnimatorSet;
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.drawable.Animatable2;
 import android.os.Bundle;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,29 +25,35 @@ public class SplashScreenActivity extends AppCompatActivity {
         TextView splashText = findViewById(R.id.splashText);
 
         //Creates the animation from the XML file and applies it to the ImageView and TextView
-        Animation animation1 = AnimationUtils.loadAnimation(this, R.anim.fade_animation);
-        Animation animation2 = AnimationUtils.loadAnimation(this, R.anim.slide_animation);
-        splashImage.startAnimation(animation1);
-        splashText.startAnimation(animation2);
+        splashImage.setAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_animation));
+        splashText.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_animation));
 
-        final Intent intent = new Intent(this, MainActivity.class);
+        AnimationSet animationSet = new AnimationSet(false);
 
-        //Creates a new Thread to make the splash screen work perfectly
-        Thread timer = new Thread() {
-            public void run() {
-                try {
-                    sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    //Launches the Main Activity
-                    startActivity(intent);
-                    //Creates an Activity transition animation
-                    Animatoo.animateZoom(SplashScreenActivity.this);
-                    finish();
-                }
+        animationSet.addAnimation(splashImage.getAnimation());
+        animationSet.addAnimation(splashText.getAnimation());
+
+        splashImage.getAnimation().setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                animation.getDuration();
             }
-        };
-        timer.start();
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
+                startActivity(intent);
+                //Creates an Activity transition animation
+                Animatoo.animateZoom(SplashScreenActivity.this);
+                finish();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        animationSet.start();
     }
 }
