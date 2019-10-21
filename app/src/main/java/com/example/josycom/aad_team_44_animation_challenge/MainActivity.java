@@ -12,9 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -74,21 +71,6 @@ public class MainActivity extends AppCompatActivity {
             quizName.setText(quiz.getName());
             quizImage.setImageResource(quiz.getImage());
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem sports = menu.add(0, 1, 0, "Sport Quiz");
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case 1:
-                startActivity(new Intent(this, SportQuizActivity.class));
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 }
