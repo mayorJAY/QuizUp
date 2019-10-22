@@ -20,14 +20,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <TextSwitcher
             android:id="@+id/question_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:fontFamily="serif-monospace"
-            android:text="1. How do you rate the test"
-            android:textSize="18sp" />
+            android:layout_gravity="center_vertical"
+            android:layout_margin="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="serif-monospace"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="serif-monospace"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+        </TextSwitcher>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
