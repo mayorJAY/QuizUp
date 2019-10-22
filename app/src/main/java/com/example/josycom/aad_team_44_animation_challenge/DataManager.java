@@ -3,10 +3,8 @@ package com.example.josycom.aad_team_44_animation_challenge;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.ContactsContract;
 
 import androidx.room.Room;
-import androidx.room.RoomDatabase;
 
 import java.util.List;
 
@@ -16,7 +14,7 @@ public class DataManager {
     Database database;
     private DataManager(Context context){
         this.context = context;
-        database = Room.databaseBuilder(context, Database.class, "Questions").allowMainThreadQueries().build();
+        database = Room.databaseBuilder(context, Database.class, "Questions.db").createFromAsset("databases/Questions.db").allowMainThreadQueries().build();
     }
 
 
