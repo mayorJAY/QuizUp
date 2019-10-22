@@ -10,8 +10,8 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="24dp"
         android:minHeight="64dp"
         android:padding="8dp"
         android:textAlignment="center"
@@ -34,14 +34,14 @@
                 android:layout_height="match_parent"
                 android:fontFamily="serif-monospace"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="32sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="serif-monospace"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="32sp" />
 
         </TextSwitcher>
     </androidx.cardview.widget.CardView>
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:minWidth="150dp"
-                android:text="Answer 1" />
+                android:text="@string/answer_1_placeholder" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/answer_2"
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:minWidth="150dp"
-                android:text="Answer 2" />
+                android:text="@string/answer_2_placeholder" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/answer_3"
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:minWidth="150dp"
-                android:text="Answer 3" />
+                android:text="@string/answer_3_placeholder" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/answer_4"
@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:minWidth="150dp"
-                android:text="Answer 4" />
+                android:text="@string/answer_4_placeholder" />
         </com.google.android.material.chip.ChipGroup>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
