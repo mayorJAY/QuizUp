@@ -14,6 +14,8 @@ interface QuestionDao{
     @Query("SELECT * from Question WHERE Category LIKE :quizName")
     List<Question> getAll(String quizName);
 
+    @Query("SELECT * from question")
+    List<Question> getAll();
 
     @Insert
     void put(Question... questions);
