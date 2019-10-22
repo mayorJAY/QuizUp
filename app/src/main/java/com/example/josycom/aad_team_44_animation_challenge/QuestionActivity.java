@@ -133,8 +133,8 @@ public class QuestionActivity extends AppCompatActivity {
         return true;
     }
 
-    private void gotoNextQuestion(){
-        if (currentNumber > questions.size()){
+    private void gotoNextQuestion() {
+        if (currentNumber >= questions.size()) {
             new AlertDialog.Builder(this).setMessage("Congratulations your score is: " + score).setNeutralButton("Ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
