@@ -6,7 +6,7 @@ class QuizListManager {
 
     public enum Quiz{
         CurrentAffairs("Current Affairs", R.drawable.ic_current_affairs_black_24dp),
-        ScienceAndDevelopment("Science And Development", R.drawable.ic_science_black_24dp),
+        ScienceAndDevelopment("Science And Technology", R.drawable.ic_science_black_24dp),
         AndroidDevelopment("Android Development", R.drawable.ic_android_black_24dp),
         WebDevelopment("Web Development", R.drawable.ic_web_black_24dp),
         GoogleCloudPlatform("Google Cloud Platform", R.drawable.ic_cloud_black_24dp),
