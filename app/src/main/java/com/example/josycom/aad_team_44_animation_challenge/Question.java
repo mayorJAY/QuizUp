@@ -11,49 +11,48 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+class AnswerConverter {
+
+    @TypeConverter
+    public String answersFromArray(List<String> answers) {
+        String a = answers.get(0);
+
+
+        for (int i = 1; i < answers.size(); i++) {
+            a = a.concat(":").concat(answers.get(i));
+        }
+
+        return a;
+    }
+
+    @TypeConverter
+    public List<String> answersToArray(String answers) {
+        return Arrays.asList(answers.split(":"));
+    }
+
+}
 
 @Entity(indices = {@Index(unique = false, value = "Category")})
 public class Question {
 
     public Question(){}
 
-    public Question(String category, String question, int answer, String... options){
+    public Question(String category, String question, String answer, String... options){
         this.Question = question;
         this.Category = category;
         this.answer = answer;
         this.options.addAll(Arrays.asList(options));
     }
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     int primaryKey;
 
     String Category;
 
     String Question;
 
-    int answer;
+    String answer;
 
     @TypeConverters(AnswerConverter.class)
     List<String> options = new ArrayList<>();
-
-    static class AnswerConverter {
-
-        @TypeConverter
-        public String answersFromArray(List<String> answers) {
-            String a = answers.get(0);
-
-
-            for (int i = 1; i < answers.size(); i++) {
-                a = a.concat(":").concat(answers.get(i));
-            }
-
-            return a;
-        }
-
-        @TypeConverter
-        public List<String> answersToArray(String answers) {
-            return Arrays.asList(answers.split(":"));
-        }
-
-    }
 }

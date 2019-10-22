@@ -11,9 +11,11 @@ import java.util.List;
 @Dao
 interface QuestionDao{
 
-    @Query("SELECT * from question WHERE Category IS :quizName")
+    @Query("SELECT * from Question WHERE Category LIKE :quizName")
     List<Question> getAll(String quizName);
 
+    @Query("SELECT * from question")
+    List<Question> getAll();
 
     @Insert
     void put(Question... questions);
