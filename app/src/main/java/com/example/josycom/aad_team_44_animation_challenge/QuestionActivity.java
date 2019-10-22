@@ -73,12 +73,15 @@ public class QuestionActivity extends AppCompatActivity {
 
                 if (i == -1) return;
 
-                Chip checkedChip = chipGroup.findViewById(chipGroup.getCheckedChipId());
+                final Chip checkedChip = chipGroup.findViewById(chipGroup.getCheckedChipId());
+                final ColorStateList defaultColor = checkedChip.getChipBackgroundColor();
                 Animation animation;
                 if (checkedChip.getText().toString().matches(currentQuestion.answer)) {
+                    checkedChip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#9C27B0")));
                     animation = AnimationUtils.loadAnimation(chipGroup.getContext(), R.anim.correct_anim);
                     ++score;
                 } else {
+                    checkedChip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#FFE91E63")));
                     animation = AnimationUtils.loadAnimation(chipGroup.getContext(), R.anim.wrong_anim);
                 }
 
@@ -92,7 +95,7 @@ public class QuestionActivity extends AppCompatActivity {
 
                     @Override
                     public void onAnimationEnd(Animation animation) {
-
+                        checkedChip.setChipBackgroundColor(defaultColor);
                     }
 
                     @Override
