@@ -37,21 +37,21 @@ public class Question {
 
     public Question(){}
 
-    public Question(String category, String question, int answer, String... options){
+    public Question(String category, String question, String answer, String... options){
         this.Question = question;
         this.Category = category;
         this.answer = answer;
         this.options.addAll(Arrays.asList(options));
     }
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     int primaryKey;
 
     String Category;
 
     String Question;
 
-    int answer;
+    String answer;
 
     @TypeConverters(AnswerConverter.class)
     List<String> options = new ArrayList<>();
