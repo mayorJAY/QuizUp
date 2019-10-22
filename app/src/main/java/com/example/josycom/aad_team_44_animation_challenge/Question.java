@@ -11,6 +11,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+class AnswerConverter {
+
+    @TypeConverter
+    public String answersFromArray(List<String> answers) {
+        String a = answers.get(0);
+
+
+        for (int i = 1; i < answers.size(); i++) {
+            a = a.concat(":").concat(answers.get(i));
+        }
+
+        return a;
+    }
+
+    @TypeConverter
+    public List<String> answersToArray(String answers) {
+        return Arrays.asList(answers.split(":"));
+    }
+
+}
 
 @Entity(indices = {@Index(unique = false, value = "Category")})
 public class Question {
@@ -35,25 +55,4 @@ public class Question {
 
     @TypeConverters(AnswerConverter.class)
     List<String> options = new ArrayList<>();
-
-    static class AnswerConverter {
-
-        @TypeConverter
-        public String answersFromArray(List<String> answers) {
-            String a = answers.get(0);
-
-
-            for (int i = 1; i < answers.size(); i++) {
-                a = a.concat(":").concat(answers.get(i));
-            }
-
-            return a;
-        }
-
-        @TypeConverter
-        public List<String> answersToArray(String answers) {
-            return Arrays.asList(answers.split(":"));
-        }
-
-    }
 }
