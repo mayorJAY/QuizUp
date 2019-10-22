@@ -104,10 +104,16 @@ public class QuestionActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         dataManager.loadQuestion(quiz, new DataManager.OnQuestionsLoadedListener() {
             @Override
             public void onQuestionsLoaded(List<Question> questions) {
                 QuestionActivity.this.questions = questions;
+                gotoNextQuestion();
             }
         });
 
