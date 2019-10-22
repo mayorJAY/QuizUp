@@ -43,7 +43,7 @@ public class QuestionActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         dataManager = DataManager.getInstance(this);
-        quiz = (QuizListManager.Quiz)getIntent().getExtras().getSerializable("quiz");
+        quiz = (QuizListManager.Quiz) getIntent().getExtras().getSerializable("quiz");
 
         toolbar.setTitle(quiz.getName());
         setSupportActionBar(toolbar);
@@ -116,13 +116,12 @@ public class QuestionActivity extends AppCompatActivity {
                 gotoNextQuestion();
             }
         });
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add("EXIT");
-        return  true;
+        return true;
     }
 
     @Override
