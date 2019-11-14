@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     android:padding="16dp"
     tools:context=".SplashScreenActivity">
 
@@ -12,7 +13,7 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:contentDescription="@string/logo"
-        android:src="@drawable/ic_question_answer"
+        android:src="@drawable/quiz_round"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +26,7 @@
         android:layout_height="wrap_content"
         android:text="@string/welcome_screen"
         android:gravity="center"
-        android:textSize="52sp"
+        android:textSize="60sp"
         android:textStyle="italic|bold"
         android:fontFamily="cursive"
         app:layout_constraintBottom_toBottomOf="parent"

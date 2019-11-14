@@ -17,6 +17,9 @@ interface QuestionDao{
     @Query("SELECT * from question")
     List<Question> getAll();
 
+    @Query("DELETE FROM question")
+    void deleteAll();
+
     @Insert
     void put(Question... questions);
 }
