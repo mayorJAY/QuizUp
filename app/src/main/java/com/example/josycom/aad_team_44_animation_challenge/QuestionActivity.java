@@ -106,6 +106,8 @@ public class QuestionActivity extends AppCompatActivity {
             }
         });
 
+        dataManager.putQuestion();
+
     }
 
     @Override
@@ -122,13 +124,13 @@ public class QuestionActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add("EXIT");
+        menu.add("Exit");
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getTitle() == "EXIT") {
+        if (item.getTitle() == "Exit") {
             finish();
         }
 
