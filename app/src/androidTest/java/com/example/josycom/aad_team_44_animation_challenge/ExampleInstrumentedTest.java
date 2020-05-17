@@ -26,18 +26,18 @@ public class ExampleInstrumentedTest {
 
     private Database mDatabase;
     private QuestionDao mDao;
-    @Test
-    public void useAppContext() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.josycom.aad_team_44_animation_challenge", appContext.getPackageName());
-    }
+    private Context appContext;
 
     @Before
     public void createDB(){
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         mDatabase = Room.inMemoryDatabaseBuilder(appContext, Database.class).build();
         mDao = mDatabase.getQuestionDao();
+    }
+
+    @Test
+    public void useAppContext() {
+        assertEquals("com.example.josycom.aad_team_44_animation_challenge", appContext.getPackageName());
     }
 
     @After
