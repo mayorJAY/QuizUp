@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">aad-team-44-animation-challenge</string>
+    <string name="app_name">QuizUp Trivia</string>
+    <string name="welcome_screen">QuizUp Trivia</string>
+    <string name="logo">This is a logo</string>
+    <string name="title_activity_question">QuestionActivity</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="sports_quiz_title">Sports Quiz</string>
+    <string name="quiz_image_description">quiz_image</string>
+    <string name="textview_placeholder">TextView</string>
+    <string name="answer_1_placeholder">Answer 1</string>
+    <string name="answer_2_placeholder">Answer 2</string>
+    <string name="answer_3_placeholder">Answer 3</string>
+    <string name="answer_4_placeholder">Answer 4</string>
 </resources>
